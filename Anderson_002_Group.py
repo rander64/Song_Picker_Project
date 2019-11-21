@@ -1,5 +1,6 @@
 """\nRiley Anderson
 Jessica Cobb
+Jada Garrison
 DSCI 15310
 Section 002
 5 November 2019\n"""
