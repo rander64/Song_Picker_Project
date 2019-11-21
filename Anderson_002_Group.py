@@ -1,4 +1,5 @@
 """\nRiley Anderson
+Jessica Cobb
 DSCI 15310
 Section 002
 5 November 2019\n"""
@@ -60,6 +61,7 @@ def random_sel_no_lyrics (a, b, c, d):
 
 #asks for song genre, tempo, mood, and era; asks if user wants lyrics and runs random_sel or random_sel_no_lyrics; asks to refresh selection
 def asker ():
+    
     while True:
         a = str(input("What song genre are you looking for? (pop, alternative/indie, alternative rock, rock, hard rock, metal, holiday, r&b/soul, hip-hop/rap, country, dance)\n").lower())
         if a.lower() not in a_list:
