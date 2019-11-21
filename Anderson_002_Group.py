@@ -1,5 +1,4 @@
 """\nRiley Anderson
-Jessica Cobb
 DSCI 15310
 Section 002
 5 November 2019\n"""
@@ -16,21 +15,33 @@ import pandas as pd
 song_df = pd.read_csv('C:/Users/drand/Documents/Python Scripts/song_database.csv')
 
 #lists of possible program inputs
-a_list = ["pop", "alternative/indie", "alternative rock", "rock", "hard rock", "metal", "holiday", "r&b/soul", "hip-hop/rap", "country", "dance"]
-b_list = ["fast", "medium", "slow"]
-c_list = ["happy", "sad", "angry"]
-d_list = ["1950s", "1960s", "1970s", "1980s", "1990s", "2000s", "2010s"]
+a_list_any = ["any", "pop", "alternative/indie", "alternative rock", "rock", "hard rock", "metal", "holiday", "r&b/soul", "hip-hop/rap", "country", "dance"]
+b_list_any = ["any", "fast", "medium", "slow"]
+c_list_any = ["any", "happy", "sad", "angry"]
+d_list_any = ["any", "1950s", "1960s", "1970s", "1980s", "1990s", "2000s", "2010s"]
 
 #subsets data from song_df
 def song_picker (a, b, c, d):
-    assert a.lower() in a_list
-    assert b.lower() in b_list
-    assert c.lower() in c_list
-    assert d.lower() in d_list
-    gen = song_df["genre"] == a.lower()
-    tem = song_df["tempo"] == b.lower()
-    moo = song_df["mood"] == c.lower()
-    era = song_df["era"] == d.lower()
+    assert a.lower() in a_list_any
+    assert b.lower() in b_list_any
+    assert c.lower() in c_list_any
+    assert d.lower() in d_list_any
+    if a != "any":
+        gen = song_df["genre"] == a.lower()
+    else:
+        gen = song_df["any_op"] == a.lower()
+    if b != "any":
+        tem = song_df["tempo"] == b.lower()
+    else:
+        tem = song_df["any_op"] == b.lower()
+    if b != "any":
+        moo = song_df["mood"] == c.lower()
+    else:
+        moo = song_df["any_op"] == c.lower()
+    if b != "any":
+        era = song_df["era"] == d.lower()
+    else: 
+        era = song_df["any_op"] == d.lower()
     all_filters = gen & tem & moo & era
     return song_df[all_filters]
 
@@ -61,31 +72,30 @@ def random_sel_no_lyrics (a, b, c, d):
 
 #asks for song genre, tempo, mood, and era; asks if user wants lyrics and runs random_sel or random_sel_no_lyrics; asks to refresh selection
 def asker ():
-    
     while True:
-        a = str(input("What song genre are you looking for? (pop, alternative/indie, alternative rock, rock, hard rock, metal, holiday, r&b/soul, hip-hop/rap, country, dance)\n").lower())
-        if a.lower() not in a_list:
+        a = str(input("What song genre are you looking for? (any, pop, alternative/indie, alternative rock, rock, hard rock, metal, holiday, r&b/soul, hip-hop/rap, country, dance)\n").lower())
+        if a.lower() not in a_list_any:
             print("\n","What was that?")
             continue
         else:
             break
     while True:
-        b = str(input("What song tempo are you looking for? (fast, medium, slow)\n").lower())
-        if b.lower() not in b_list:
+        b = str(input("What song tempo are you looking for? (any, fast, medium, slow)\n").lower())
+        if b.lower() not in b_list_any:
             print("\n","What was that?")
             continue
         else:
             break
     while True:
-        c = str(input("What song mood are you looking for? (happy, sad, angry)\n").lower())
-        if c.lower() not in c_list:
+        c = str(input("What song mood are you looking for? (any, happy, sad, angry)\n").lower())
+        if c.lower() not in c_list_any:
             print("\n","What was that?")
             continue
         else:
             break
     while True:
-        d = str(input("What song era are you looking for? (1950s, 1960s, 1970s, 1980s, 1990s, 2000s, 2010s)\n").lower())
-        if d.lower() not in d_list:
+        d = str(input("What song era are you looking for? (any, 1950s, 1960s, 1970s, 1980s, 1990s, 2000s, 2010s)\n").lower())
+        if d.lower() not in d_list_any:
             print("\n","What was that?")
             continue
         else:
