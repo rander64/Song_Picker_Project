@@ -1,4 +1,7 @@
 """\nRiley Anderson
+Jada Garrison
+Jessica Cobb
+Abdullah Al Bahlouli
 DSCI 15310
 Section 002
 5 November 2019\n"""
@@ -20,36 +23,43 @@ b_list_any = ["any", "fast", "medium", "slow"]
 c_list_any = ["any", "happy", "sad", "angry"]
 d_list_any = ["any", "1950s", "1960s", "1970s", "1980s", "1990s", "2000s", "2010s"]
 
-#subsets data from song_df
+#subsets data from song_df based on user input
 def song_picker (a, b, c, d):
-    assert a.lower() in a_list_any
-    assert b.lower() in b_list_any
-    assert c.lower() in c_list_any
-    assert d.lower() in d_list_any
-    if a != "any":
-        gen = song_df["genre"] == a.lower()
-    else:
-        gen = song_df["any_op"] == a.lower()
-    if b != "any":
-        tem = song_df["tempo"] == b.lower()
-    else:
-        tem = song_df["any_op"] == b.lower()
-    if b != "any":
-        moo = song_df["mood"] == c.lower()
-    else:
-        moo = song_df["any_op"] == c.lower()
-    if b != "any":
-        era = song_df["era"] == d.lower()
-    else: 
-        era = song_df["any_op"] == d.lower()
-    all_filters = gen & tem & moo & era
-    return song_df[all_filters]
+    """song_picker(a, b, c, d); 4 arguments; subsets data from song_df based on user input"""
+    while True:
+        assert a.lower() in a_list_any
+        assert b.lower() in b_list_any
+        assert c.lower() in c_list_any
+        assert d.lower() in d_list_any
+        if a != "any":
+            gen = song_df["genre"] == a.lower()
+        else:
+            gen = song_df["any_op"] == a.lower()
+        if b != "any":
+            tem = song_df["tempo"] == b.lower()
+        else:
+            tem = song_df["any_op"] == b.lower()
+        if b != "any":
+            moo = song_df["mood"] == c.lower()
+        else:
+            moo = song_df["any_op"] == c.lower()
+        if b != "any":
+            era = song_df["era"] == d.lower()
+        else: 
+            era = song_df["any_op"] == d.lower()
+        all_filters = gen & tem & moo & era
+        return song_df[all_filters]
+        if IndexError:
+            continue
+        else:
+            break
 
 #dataframe reduced to song list
 song_list = song_df['song'].tolist()
 
 #randomly select song based on user input; outputs the inputs, song, and lyrics; searches for song on Spotify   
-def random_sel (a, b, c, d): 
+def random_sel (a, b, c, d):
+    """random_sel(a, b, c, d); 4 arguments; randomly select song based on user input; outputs the inputs, song, and lyrics; searches for song on Spotify"""
     options = song_picker(a, b, c, d)
     options_list = options['song'].tolist()
     choice = random.choice(options_list)
@@ -60,7 +70,8 @@ def random_sel (a, b, c, d):
     return search
 
 #randomly select song based on user input; outputs the inputs and song; searches for song on Spotify  
-def random_sel_no_lyrics (a, b, c, d): 
+def random_sel_no_lyrics (a, b, c, d):
+    """random_sel_no_lyrics(a, b, c, d); 4 arguments; randomly select song based on user input; outputs the inputs and song; searches for song on Spotify""" 
     options = song_picker(a, b, c, d)
     options_list = options['song'].tolist()
     choice = random.choice(options_list)
@@ -72,6 +83,7 @@ def random_sel_no_lyrics (a, b, c, d):
 
 #asks for song genre, tempo, mood, and era; asks if user wants lyrics and runs random_sel or random_sel_no_lyrics; asks to refresh selection
 def asker ():
+    """asker(); no parameter but requires 6 arguments; asks for song genre, tempo, mood, and era; asks if user wants lyrics and runs random_sel or random_sel_no_lyrics; asks to refresh selection"""  
     while True:
         a = str(input("What song genre are you looking for? (any, pop, alternative/indie, alternative rock, rock, hard rock, metal, holiday, r&b/soul, hip-hop/rap, country, dance)\n").lower())
         if a.lower() not in a_list_any:
@@ -142,6 +154,7 @@ def asker ():
 
 #asks to restart selection process                  
 def loop ():
+    """loop(); no parameter but 1 argument; asks to restart song selection process (calls asker() function)"""
     ask_again = str(input("Would you like another suggestion? (y/n)\n").lower())
     if ask_again == 'y':
         print("\n")
@@ -156,4 +169,5 @@ def loop ():
 if __name__ == '__main__':
     asker()
     
+
 
